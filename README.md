@@ -2,14 +2,14 @@
 
 ## TEMA: Utilização de sockets para comunicação entre processos
 
-## Componentes:
+## Equipe:
 * Everton Nazaré do Sacramento - RA: 1272119075
 * Manuelle Reis - RA: 1272116405    
 * Leonardo Oliveira - RA: 1272121620
 * Rafael Lima - RA: 1272117553
 * Ygor Pinto Gama - RA: 1272121369
 
-## Requisitos:
+## Requisitos funcionais:
 ### O aplicativo deve funcionar da seguinte maneira:
 * Há dois tipos de clientes: os vendedores e os gerentes.
 * Vendedores informam ao sistema o valor de cada venda feita por eles.
@@ -51,14 +51,17 @@ solicitação foi feita de forma incorreta (dados inválidos).
 ### Este trabalho foi desenvolvido com a linguagem **PYTHON** versão 3, com a biblioteca *socket* para realizar a comunicação entre os processos.
 <br/>
 
+### É necessário ter o Python instalado na máquina, preferencialmente, na versão 3, para executar essa aplicação.
+<br/>
+
 ### Estrutura do trabalho:
-### Essa solução foi divida em **três** arquivos:
+#### Essa solução foi divida em **três** arquivos:
 * servidor.py
 * gerente.py
 * vendedor.py
 <br/>
 
-### Instruções para rodar o projeto:
+#### Instruções para rodar o projeto:
 1. Clone este repositório com o comando: `git clone git@github.com:evertonnasac/socket-python.git` ou baixe os arquivos do projeto na opção *download.zip*
 2. Utilize o terminal para ir até o diretório onde estão os arquivos do projeto.
 3. Após se certificar que está trabalhando no diretório do projeto, deve-se, primeiramente, executar o servidor. Então, execute o comando python para executar o arquivo **servidor.py**. - Exemplo usando linux com python na versão 3: `python3 servidor.py`. 
@@ -72,7 +75,7 @@ solicitação foi feita de forma incorreta (dados inválidos).
 
 ### Para cumprir com os requisitos do projeto, a aplicação possui duas lojas previamente cadastradas, denominadas de LOJA_1 e LOJA_2.
 
-### Há também 4 vendedores previamente cadastrados, demoniados de:
+### Há também 4 vendedores previamente cadastrados, denominados de:
 * Joao 
 * Ana
 * Jose
