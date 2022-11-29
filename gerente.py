@@ -2,11 +2,13 @@
 # Cliente Funcionario Socket TCP
 # ------------------
 
-print("Gerente")
+
+print("GERENTE")
 
 
 import socket
 import datetime
+import os
 
 # definindo ip e porta
 HOST = '127.0.0.15'       
@@ -35,14 +37,14 @@ def getData():
 	controle = True
 
 	while controle:
-		print("Siga as orientações abaixo para informar a data corretamente")
+		print("\nSiga as orientações abaixo para informar a data corretamente:\n")
 		
 		try:
 
-			print("Digite o dia na data a ser pesquisada ")
+			print("\nDigite o dia na data a ser pesquisada: \n ")
 			dia = int((input()))
 
-			print("Digite o numero do mes correspondente a data a ser pesquisada:\n" +
+			print("\nDigite o numero do mes correspondente a data a ser pesquisada:\n" +
 
 				"1 -  JANEIRO\n" +
 				"2 -  FEVEREIRO\n" +
@@ -59,7 +61,7 @@ def getData():
 			)
 			mes = int(input())
 
-			print("Digite o ano por extenso (com 4 dígitos) na data a ser pesauisada. Exemplo: 2022 ou 1998")
+			print("\nDigite o ano por extenso (com 4 dígitos) na data a ser pesauisada. Exemplo: 2022 ou 1998\n")
 			ano = int(input())
 			
 			data = datetime.date(ano, mes, dia)
@@ -67,26 +69,29 @@ def getData():
 			return data
 
 		except: 
-			print("Por favor, preencha os campos de forma correta")
+			print("\nPor favor, preencha os campos de forma correta\n")
 
 # Função que retorna o total de vendas de um vendedor escolhido pelo usuário
 def getTotalVendedor(opcao):    
-    print("Vendedores cadastrados:\nAna\nJoao\nJose\nMaria")
-    print("Digite o nome do vendedor entre os listados acima")
+    print("\nVendedores cadastrados:\nAna\nJoao\nJose\nMaria\n")
+    print("Digite o nome do vendedor entre os listados acima\n")
     nome = input()
 
     # Cria um dicionário com os dados e passa para a função que troca menssagens com o servidor
     mensagem = {"operacao": CODIGO_OPERACAO, "opcao": opcao, "vendedor": nome}
+    print("\n")
     resposta = eval(sendMessage(mensagem))
 
     # Verifica se a resposta é um dicionrario ou string para o tratemento adequado
     if resposta["type"] == "string":
+        print("\n")
         print(resposta["message"])
         return 
         
     nome = resposta["nome"]
     vendas = resposta["vendas"]
 
+    print("\n")
     print(f"Nome: {nome} --- Total de vendas: {vendas} ")
 
 # Função que apresenta o vendedor com maior valor em vendas
@@ -97,6 +102,7 @@ def getMelhorVendedor(opcao):
     resposta = eval(sendMessage(mensagem))
 
     if resposta["type"] == "string":
+        print("\n")
         print(resposta["message"])
         return 
     
@@ -105,6 +111,7 @@ def getMelhorVendedor(opcao):
 
         # Nesse caso, a chave "valor" é uma string com o seguinte modelo: {"nome": "xxx", "valor":"yyy"}
         vendedor = eval(resposta["valor"])
+        print("\n")
         print(f"Nome: {vendedor['nome'].title()} --- Total em vendas: {vendedor['vendas']}")
         
     # a chave "type" com valor "list" revela que foram retornados mais de um vendedor com valores de vendas iguais
@@ -117,29 +124,30 @@ def getMelhorVendedor(opcao):
         # Os dados são convertidos em uma lista e em seguida, cada item são convertidos em dicionario
         lista = list(lista.split("*"))
 
-        print("Os vendedores com maior valor em vendas são:")
+        print("\nOs vendedores com maior valor em vendas são:\n")
         for x in range(len(lista)):
             lista[x] = eval(lista[x])
             print(f"Nome: {lista[x]['nome'].title()} --- Valor: {lista[x]['vendas']}")
+            print("\n")
 
+# Solicita ao usuario uma data inicial e uma data final, e retorna o valor total de vendas dentro do periodo
 def getTotalPeriodo(opcao):
 
-    print("Informe a data INICIAL do período a ser pesquisado")
+    print("\nInforme a data INICIAL do período a ser pesquisado\n")
     dataInicial = getData()
-    print("Informe a data FINAL do período a ser pesquisado")
+    print("\nInforme a data FINAL do período a ser pesquisado\n")
     dataFinal = getData()
-
-    print("END")
 
     mensagem = {"operacao": CODIGO_OPERACAO, "opcao": opcao, "inicial": dataInicial, "final": dataFinal}
     retorno =  sendMessage(mensagem)
+    print("\n")
     print(retorno)
 
 
 
 
 def getTotalVendasUmaLoja(opcao):
-    print("Digite o código da loja")
+    print("\nDigite o código da loja:\n")
     print("1 - LOJA 1")
     print("2 - LOJA 2")
     loja = input("") 
@@ -148,9 +156,11 @@ def getTotalVendasUmaLoja(opcao):
     retorno = eval(sendMessage(mensagem))
 
     if retorno["type"] == "string":
+        print("\n")
         print(retorno["message"])
         return
 
+    print("\n")
     print(f"Loja: {retorno['loja']} --- Total de vendas: {retorno['total']} ")
 
 
@@ -159,6 +169,7 @@ def getMelhorLoja(opcao):
     resposta = eval(sendMessage(mensagem))
 
     if resposta["type"] == "string":
+        print("\n")
         print(resposta["message"])
         return 
 
@@ -168,6 +179,7 @@ def getMelhorLoja(opcao):
         # Nesse caso, a chave "valor" é uma string com o seguinte modelo: {"loja": "xxx", "total":"yyy"}
         loja = eval(resposta["valor"])
         
+        print("\n")
         print(f"Nome: {loja['loja'].title()} --- Total em vendas: {loja['total']}")
         
     # a chave "type" com valor "list" revela que foram retornados mais de uma loja com valores de vendas iguais
@@ -180,7 +192,8 @@ def getMelhorLoja(opcao):
         # Os dados são convertidos em uma lista e em seguida, cada item são convertidos em dicionario
         lista = list(lista.split("*"))
 
-        print("As lojas com maior valor em vendas são:")
+        print("\n")
+        print("As lojas com maior valor em vendas são:\n")
         for x in range(len(lista)):
             lista[x] = eval(lista[x])
             print(f"Nome: {lista[x]['loja'].title()} --- Valor: {lista[x]['total']}")
@@ -188,11 +201,12 @@ def getMelhorLoja(opcao):
 
 #...........................Menu de opções.......................
 
-print("DIGITE QUALQUER LETRA PARA INICIAR A OPERAÇÃO OU DIGITE O NUMERO 0 (ZERO) PARA ENCERRAR")
+print("\nDIGITE QUALQUER LETRA PARA INICIAR A OPERAÇÃO OU DIGITE O NUMERO 0 (ZERO) PARA ENCERRAR\n")
 entrada = input()
+os.system('clear') or None
 
 while entrada != "0":
-    print("Escolha uma das opções abaixo digitando o numero correspondente a operação desejada")
+    print("\nEscolha uma das opções abaixo digitando o numero correspondente a operação desejada:\n")
     print("1 - Valor total de vendas de um vendedor \n"+
           "2 - Vendedor com maior valor acumulado em vendas\n"+
           "3 - Valor total de vendas de uma loja\n"+
@@ -216,8 +230,9 @@ while entrada != "0":
     elif opcao == "5":
         getMelhorLoja(opcao)
 
-    print("DIGITE QUALQUER LETRA PARA INICIAR A OPERAÇÃO OU DIGITE O NUMERO 0 (ZERO) PARA ENCERRAR")
+    print("\nDIGITE QUALQUER LETRA PARA INICIAR A OPERAÇÃO OU DIGITE O NUMERO 0 (ZERO) PARA ENCERRAR\n")
     entrada = input()
+    os.system('clear') or None
 
-print("Encerrando o cliente")
+print("Encerrando o GERENTE")
 cliente.close()

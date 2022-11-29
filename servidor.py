@@ -5,24 +5,16 @@ import datetime
 
 #............................Dados...................
 vendedores = [
-	{"nome": "joao", "vendas" : 10.0},
-	{"nome": "ana", "vendas" : 500.0},
-	{"nome": "jose", "vendas" : 500.0},
-	{"nome": "maria", "vendas" : 500.0}
+	{"nome": "joao", "vendas" : 0},
+	{"nome": "ana", "vendas" : 0},
+	{"nome": "jose", "vendas" : 0},
+	{"nome": "maria", "vendas" : 0}
 ]
 
 
-loja_1 = [
-    {"valor": 200.00, "data": datetime.date(2022,10,20)},
-    {"valor": 100.00, "data": datetime.date(2022,7,20)},
-    {"valor": 400.00, "data": datetime.date(2022,9,20)}
-]
+loja_1 = []
 
-loja_2 = [
-    {"valor": 300.00, "data": datetime.date(2022,11,20)},
-    {"valor": 50.00, "data": datetime.date(2022,6,20)},
-    {"valor": 400.00, "data": datetime.date(2022,5,20)}
-]
+loja_2 = []
 
 
 
@@ -140,8 +132,6 @@ def calculaPeriodo(inicial, final):
     valorTotal = 0.0
     for venda in range(indiceInical, indiceFinal):
         valorTotal += totalVendas[venda]["valor"]
-    
-    print(valorTotal)
 
     return f"O Valor total de vendas no período de {inicial} a {final} é de {valorTotal}"
 
@@ -194,59 +184,58 @@ servidor.bind((HOST,PORT))
 
 # servidor escutando (aguardando cliente)
 servidor.listen()
-print("Aguardando cliente...")
 
 
-# cliente conectou - recuperando informações do cliente
-conexaoCliente, enderecoCliente = servidor.accept()
-print(f"Cliente {enderecoCliente} conectou.")
 
-
-# conversando com o cliente
 while (True):
 
-    # recebendo dados
-    receive = conexaoCliente.recv(1024)
-    # testando dados enviados
+    print("Aguardando cliente...")
+    conexaoCliente, enderecoCliente = servidor.accept()
+    print(f"Cliente {enderecoCliente} conectou.")
 
-    if (not receive):
-    # encerrando conexão e saindo do loop
-        print ("Encerrando a conexão...")
-        conexaoCliente.close()
-        break
+    while (True):
 
-    dados = eval(receive.decode("utf-8"))
-    codigo_operacao = dados["operacao"]
-    retorno = ""
+        try:
+            # recebendo dados
+            receive = conexaoCliente.recv(1024)
+            # testando dados enviados
+        
+        except:
+            continue
 
-    if codigo_operacao == "1":
-        retorno = registrarVenda(dados)
+        if (not receive):
+            break
 
-    elif codigo_operacao == "2":
-        if dados["opcao"] =="1":
-            retorno = getTotalVendedor(dados["vendedor"])
+        dados = eval(receive.decode("utf-8"))
+        codigo_operacao = dados["operacao"]
+        retorno = ""
 
-        elif dados["opcao"] == "2":
-            retorno = getMelhorVendedor()
+        if codigo_operacao == "1":
+            retorno = registrarVenda(dados)
 
-        elif dados["opcao"] == "3":
+        elif codigo_operacao == "2":
+            if dados["opcao"] =="1":
+                retorno = getTotalVendedor(dados["vendedor"])
+
+            elif dados["opcao"] == "2":
+                retorno = getMelhorVendedor()
+
+            elif dados["opcao"] == "3":
+                
+                if dados["loja"] == "1":
+                    retorno = calculaTotalLoja(loja_1, "Loja 1")
+                elif dados["loja"] == "2":
+                    retorno = calculaTotalLoja(loja_2, "Loja 2")
+                else:
+                    retorno = {"type": "string", "message" : "ERROR: Loja não encontrada"}
             
-            if dados["loja"] == "1":
-                retorno = calculaTotalLoja(loja_1, "Loja 1")
-            elif dados["loja"] == "2":
-                retorno = calculaTotalLoja(loja_2, "Loja 2")
-            else:
-                retorno = {"type": "string", "message" : "ERROR: Loja não encontrada"}
-        
-        elif dados["opcao"] == "4":
-            retorno = calculaPeriodo(dados["inicial"], dados["final"])
+            elif dados["opcao"] == "4":
+                retorno = calculaPeriodo(dados["inicial"], dados["final"])
 
-        elif dados["opcao"] == "5":
-            retorno = getMelhorLoja()
-        
-    retorno = str(retorno)    
-        
-    conexaoCliente.sendall(retorno.encode("utf-8"))
+            elif dados["opcao"] == "5":
+                retorno = getMelhorLoja()
+            
+        retorno = str(retorno)    
+            
+        conexaoCliente.sendall(retorno.encode("utf-8"))
 
-# mensagem de encerramento
-print("Servidor encerrado.")
