@@ -9,6 +9,43 @@
 * Rafael Lima - RA: 1272117553
 * Ygor Pinto Gama - RA: 1272121369
 
+## Requisitos:
+### O aplicativo deve funcionar da seguinte maneira:
+* Há dois tipos de clientes: os vendedores e os gerentes.
+* Vendedores informam ao sistema o valor de cada venda feita por eles.
+* Gerentes consultam as informações de vendas registradas.
+* O servidor hospeda as informações fornecidas por vendedores e responde
+consultas dos gerentes. 
+
+## Detalhamento do funcionamento da aplicação:
+* Cliente (Vendedor)
+1. Envia ao servidor uma mensagem informando uma venda realizada.
+2. A mensagem deve conter um código de operação, o nome do vendedor, a
+identificação da loja, a data da venda e o valor vendido.
+* Cliente (Gerente)
+1. Envia ao servidor uma mensagem solicitando uma das possíveis consultas:
+2. Total de vendas de um vendedor (deve informar o nome do vendedor na
+mensagem)
+3. Total de vendas de uma loja (deve informar a identificação da loja na
+mensagem)
+4. Total de vendas da rede de lojas em um período (deve informar a data inicial e a
+data final do período desejado)
+5. Melhor vendedor (aquele que tem o maior valor acumulado de vendas)
+6. Melhor loja (aquela que tem o maior valor acumulado de vendas)
+7. As mensagens sempre devem conter um código de operação e os dados
+necessários para a operação ser realizada.
+* Servidor
+1. Aguarda solicitações de clientes (escuta).
+2. Recebe solicitação e identifica o tipo a partir do código de operação enviado:
+3. Se for um informe de venda (enviado por um vendedor), inclui a informação nos
+dados do sistema e responder a mensagem contendo a string “OK” confirmando
+a inclusão ou “ERRO” informando que os dados enviados estão incorretos.
+4. Se for uma consulta (enviada por um gerente), identifica qual o tipo de consulta
+solicitada, pesquisa e calcula nos dados acumulados a informação solicitada e
+devolve a resposta adequada ou uma string “ERRO” informando que a
+solicitação foi feita de forma incorreta (dados inválidos).
+5. Responde a cada solicitação enviada
+
 ## Documentação:
 
 ### Este trabalho foi desenvolvido com a linguagem **PYTHON** versão 3, com a biblioteca *socket* para realizar a comunicação entre os processos.
