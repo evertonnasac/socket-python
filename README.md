@@ -49,35 +49,35 @@ Tela de Menu:
 ![Menu gerente](/images/tela-menu-gerente.png)
 <br/>
 
-Opçao 1 - Total de um vendedor:
+Opçao 1 - Total de um vendedor: <br/>
 ![Opcao 1](/images/tela-totalvendedor-gerente.png)
 <br/>
 
-Opção 2 - Maior vendedor
+Opção 2 - Maior vendedor: <br/>
 ![Opcao 2](/images/tela-maiorvendedor-gerente.png)
 <br/>
 
-Opcao 3 - Total de uma loja
+Opcao 3 - Total de uma loja: <br/>
 ![Opcao 3](/images/tela-totalloja-gerente.png)
 <br/>
 
-Opcao 4 - Total da rede por período
+Opcao 4 - Total da rede por período: <br/>
 ![opcao 4](/images/tela-totalredept1-gerente.png)
 ![opcao 4](/images/tela-totalredept2-gerente.png)
 <br/>
 
 
-Opcao 5 - Maior loja:
+Opcao 5 - Maior loja: <br/>
 ![opcao 5](/images/tela-maiorloja-gerente.png)
 <br/>
 
 ## Funcionalidades da solução Vendedor:
 
-Menu Vendedor:
+Menu Vendedor: <br/>
 ![menu vendedor](/images/tela-menu-vendedor.png)
 <br/>
 
-Registrando venda do vendedor: 
+Registrando venda do vendedor: <br/>
 ![menu vendedor](/images/tela-vendapt1-vendedor.png)
 ![menu vendedor](/images/tela-vendapt2-vendedor.png)
 <br/>
